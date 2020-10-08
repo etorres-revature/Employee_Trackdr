@@ -38,7 +38,7 @@ function inquirerPrompts() {
         "Delete Role",
         "Delete Employee",
         "View total budget of Department",
-        "Exit"
+        "Exit",
       ],
     })
     .then(promptAnswer);
@@ -148,11 +148,11 @@ function addDepartment() {
     .then((data) => {
       const query = "INSERT INTO department SET ?";
       const newDept = {
-          name: data.newDepartment
-      }
+        name: data.newDepartment,
+      };
       connection.query(query, newDept, (err, res) => {
         if (err) throw err;
-        console.log("New Department successfully added!")
+        console.log("New Department successfully added!");
         inquirerPrompts();
       });
     });
@@ -178,14 +178,14 @@ function addRole() {
     ])
     .then((data) => {
       const query = "INSERT INTO role SET ?";
-        const newRole = {
+      const newRole = {
         title: data.title,
         salary: data.salary,
-        department_id: data.department_id
-         }
+        department_id: data.department_id,
+      };
       connection.query(query, newRole, (err, res) => {
         if (err) throw err;
-        console.log("New Role successfully added.")
+        console.log("New Role successfully added.");
         inquirerPrompts();
       });
     });
@@ -211,36 +211,54 @@ function addEmployee() {
       {
         name: "empManager",
         type: "input",
-        message: "Please input Employee ID of the new employee (Please leave blank if the employee is a manager).",
+        message:
+          "Please input Employee ID of the new employee (Please leave blank if the employee is a manager).",
       },
     ])
     .then((data) => {
       const query = "INSERT INTO employee SET ?";
       const newEmp = {
-          first_name: data.empFName,
-          last_name: data.empLName,
-          role_id: data.empRole,
-          manager_id: data.empManager
-      }
+        first_name: data.empFName,
+        last_name: data.empLName,
+        role_id: data.empRole,
+        manager_id: data.empManager,
+      };
       connection.query(query, newEmp, (err, res) => {
         if (err) throw err;
-        console.log("New Employee successfully added.")
+        console.log("New Employee successfully added.");
         inquirerPrompts();
       });
     });
 }
 
 function updateRole() {
-    inquirer([{
-        name: "employee",
-        type: "input",
-        message: "Enter the ID of the Employee whose Role you would like to update."
+  inquirer([
+    {
+      name: "employee",
+      type: "input",
+      message:
+        "Enter the ID of the Employee whose Role you would like to update.",
     },
-{
-    name: "role",
-    type: "input",
-    message: "Enter the new Role ID for this Employee."
-}]).then(data => {
-
-})
+    {
+      name: "role",
+      type: "input",
+      message: "Enter the new Role ID for this Employee.",
+    },
+  ]).then((data) => {
+    const query = "UPDATE employee SET ? WHERE ?";
+    const newRole = [
+      {
+        role: data.role,
+      },
+      {
+        id: data.employee,
+      },
+    ];
+    connection.query(query, newRole, (err, res) => {
+        if (err) throw err;
+        inquirerPrompts();
+    })
+  });
 }
+
+
