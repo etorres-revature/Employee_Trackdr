@@ -239,63 +239,67 @@ function addEmployee() {
 }
 
 function updateRole() {
-  inquirer([
-    {
-      name: "employee",
-      type: "input",
-      message:
-        "Enter the ID of the Employee whose Role you would like to update.",
-    },
-    {
-      name: "role",
-      type: "input",
-      message: "Enter the new Role ID for this Employee.",
-    },
-  ]).then((data) => {
-    const query = "UPDATE employee SET ? WHERE ?";
-    const newRole = [
+  inquirer
+    .prompt([
       {
-        role_id: data.role,
+        name: "employee",
+        type: "input",
+        message:
+          "Enter the ID of the Employee whose Role you would like to update.",
       },
       {
-        id: data.employee,
+        name: "role",
+        type: "input",
+        message: "Enter the new Role ID for this Employee.",
       },
-    ];
-    connection.query(query, newRole, (err, res) => {
-      if (err) throw err;
-      inquirerPrompts();
+    ])
+    .then((data) => {
+      const query = "UPDATE employee SET ? WHERE ?";
+      const newRole = [
+        {
+          role_id: data.role,
+        },
+        {
+          id: data.employee,
+        },
+      ];
+      connection.query(query, newRole, (err, res) => {
+        if (err) throw err;
+        inquirerPrompts();
+      });
     });
-  });
 }
 
 function updateManager() {
-  inquirer([
-    {
-      name: "employee",
-      type: "input",
-      message:
-        "Enter the ID of the Employee whose Manager you would like to update.",
-    },
-    {
-      name: "manager",
-      type: "input",
-      message: "Enter the new Manager ID for this Employee.",
-    },
-  ]).then((data) => {
-    const query = "UPDATE employee SET ? WHERE ?";
-    const newRole = [
+  inquirer
+    .prompt([
       {
-        manager_id: data.manager,
+        name: "employee",
+        type: "input",
+        message:
+          "Enter the ID of the Employee whose Manager you would like to update.",
       },
       {
-        id: data.employee,
+        name: "manager",
+        type: "input",
+        message: "Enter the new Manager ID for this Employee.",
       },
-    ];
-    connection.query(query, newRole, (err, res) => {
-      if (err) throw err;
-      inquirerPrompts();
+    ])
+    .then((data) => {
+      const query = "UPDATE employee SET ? WHERE ?";
+      const newRole = [
+        {
+          manager_id: data.manager,
+        },
+        {
+          id: data.employee,
+        },
+      ];
+      connection.query(query, newRole, (err, res) => {
+        if (err) throw err;
+        inquirerPrompts();
+      });
     });
-  });
 }
 
 function viewEmployeesByManager() {}
@@ -317,7 +321,7 @@ function deleteDepartment() {
       };
       connection.query(query, deleteDept, (err, res) => {
         if (err) throw err;
-        console.log(`${deleteDept} has been deleted from the company records.`);
+        console.log("This Department has been deleted from the company records.");
         inquirerPrompts();
       });
     });
@@ -339,7 +343,7 @@ function deleteRole() {
       };
       connection.query(query, deleteRole, (err, res) => {
         if (err) throw err;
-        console.log(`${deleteRole} has been deleted from the company records.`);
+        console.log("This Role has been deleted from the company records.");
         inquirerPrompts();
       });
     });
@@ -355,13 +359,13 @@ function deleteEmployee() {
       },
     ])
     .then((data) => {
-      const query = "DELETE FROM role WHERE ?";
+      const query = "DELETE FROM employee WHERE ?";
       const deleteEmp = {
         id: data.empID,
       };
       connection.query(query, deleteEmp, (err, res) => {
         if (err) throw err;
-        console.log("This employee has been deleted from the company records.");
+        console.log("This Employee has been deleted from the company records.");
         inquirerPrompts();
       });
     });
