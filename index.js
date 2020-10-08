@@ -162,6 +162,7 @@ function addDepartment() {
       });
     });
 }
+
 function addRole() {
   inquirer
     .prompt([
@@ -195,6 +196,7 @@ function addRole() {
       });
     });
 }
+
 function addEmployee() {
   inquirer
     .prompt([
@@ -298,6 +300,7 @@ function updateManager() {
 
 function viewEmployeesByManager() {}
 function viewEmployeesByDepartment() {}
+
 function deleteDepartment() {
   inquirer
     .prompt([
@@ -314,11 +317,12 @@ function deleteDepartment() {
       };
       connection.query(query, deleteDept, (err, res) => {
         if (err) throw err;
-        console.log(`${deleteDept} has been deleted from the company records`);
+        console.log(`${deleteDept} has been deleted from the company records.`);
         inquirerPrompts();
       });
     });
 }
+
 function deleteRole() {
   inquirer
     .prompt([
@@ -335,10 +339,32 @@ function deleteRole() {
       };
       connection.query(query, deleteRole, (err, res) => {
         if (err) throw err;
-        console.log(`${deleteRole} has been deleted from the company records`);
+        console.log(`${deleteRole} has been deleted from the company records.`);
         inquirerPrompts();
       });
     });
 }
-function deleteEmployee() {}
+
+function deleteEmployee() {
+  inquirer
+    .prompt([
+      {
+        name: "empID",
+        type: "input",
+        message: "Enter the ID of the Employee you would like to delete.",
+      },
+    ])
+    .then((data) => {
+      const query = "DELETE FROM role WHERE ?";
+      const deleteEmp = {
+        id: data.empID,
+      };
+      connection.query(query, deleteEmp, (err, res) => {
+        if (err) throw err;
+        console.log("This employee has been deleted from the company records.");
+        inquirerPrompts();
+      });
+    });
+}
+
 function viewTotalBudgetDept() {}
