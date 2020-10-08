@@ -102,5 +102,16 @@ function viewDepartments() {
            if (err) throw err;
            const table = cTable.getTable(res);
            console.log(table);
+           inquirerPrompts();
        })
+}
+
+function viewRoles() {
+    const query = "SELECT * FROM role";
+    connection.query(query, (err, res) => {
+        if (err) throw err;
+        const table = cTable.getTable(res);
+        console.log(table);
+        inquirerPrompts();
+    })
 }
