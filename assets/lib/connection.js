@@ -9,10 +9,4 @@ const connection = mysql.createConnection({
   database: "company_db",
 });
 
-//connect to the MySQL server, and call for inquirere prompts when connected
-connection.connect((err) => {
-  if (err) throw err;
-  inquirer.inquirerPrompts();
-});
-
 module.exports = connection;

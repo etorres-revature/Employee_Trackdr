@@ -35,6 +35,7 @@ function inquirerPrompts() {
 
   function promptAnswer({ choice }) {
     switch (choice) {
+
       case "View all Departments":
         department.read();
         break;
@@ -106,4 +107,4 @@ function inquirerPrompts() {
 
   module.exports = {
       prompts: inquirerPrompts
-  };
+  }

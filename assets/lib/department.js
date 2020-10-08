@@ -1,6 +1,7 @@
 const mysql = require("mysql");
-const cTablde = require("console.table");
+const cTable = require("console.table");
 const connection = require("./connection");
+const inquirer = require("./inquirer")
 
 function viewDepts() {
     const query = "SELECT * FROM department";
@@ -8,7 +9,7 @@ function viewDepts() {
       if (err) throw err;
       const table = cTable.getTable(res);
       console.log(table);
-      inquirerPrompts();
+      inquirer.prompts();
     });
   }
 
@@ -29,7 +30,7 @@ function viewDepts() {
         connection.query(query, newDept, (err, res) => {
           if (err) throw err;
           console.log("New Department successfully added!");
-          inquirerPrompts();
+          inquirer.prompts();
         });
       });
   }
@@ -61,7 +62,7 @@ function viewDepts() {
         ];
         connection.query(query, newRole, (err, res) => {
           if (err) throw err;
-          inquirerPrompts();
+          inquirer.prompts();
         });
       });
   }
@@ -85,7 +86,7 @@ function viewDepts() {
           console.log(
             "This Department has been deleted from the company records."
           );
-          inquirerPrompts();
+          inquirer.prompts();
         });
       });
   }

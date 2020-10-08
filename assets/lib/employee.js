@@ -1,6 +1,7 @@
 const mysql = require("mysql");
-const cTablde = require("console.table");
+const cTable = require("console.table");
 const connection = require("./connection");
+const inquirer = require("./inquirer")
 
 function viewEmployees() {
     const query = "SELECT * FROM employee";
@@ -8,7 +9,7 @@ function viewEmployees() {
       if (err) throw err;
       const table = cTable.getTable(res);
       console.log(table);
-      inquirerPrompts();
+      inquirer.prompts();
     });
   }
   
@@ -49,7 +50,7 @@ function viewEmployees() {
         connection.query(query, newEmp, (err, res) => {
           if (err) throw err;
           console.log("New Employee successfully added.");
-          inquirerPrompts();
+          inquirer.prompts();
         });
       });
   }
@@ -81,7 +82,7 @@ function viewEmployees() {
         ];
         connection.query(query, newRole, (err, res) => {
           if (err) throw err;
-          inquirerPrompts();
+          inquirer.prompts();
         });
       });
   }
@@ -96,7 +97,7 @@ function viewEmployees() {
       if (err) throw err;
       const table = cTable.getTable(res);
       console.log(table);
-      inquirerPrompts();
+      inquirer.prompts();
     });
   }
   
@@ -110,7 +111,7 @@ function viewEmployees() {
       if (err) throw err;
       const table = cTable.getTable(res);
       console.log(table);
-      inquirerPrompts();
+      inquirer.prompts();
     });
   }
 
@@ -131,7 +132,7 @@ function viewEmployees() {
         connection.query(query, deleteEmp, (err, res) => {
           if (err) throw err;
           console.log("This Employee has been deleted from the company records.");
-          inquirerPrompts();
+          inquirer.prompts();
         });
       });
   }
