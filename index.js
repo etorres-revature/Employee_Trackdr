@@ -248,7 +248,36 @@ function updateRole() {
     const query = "UPDATE employee SET ? WHERE ?";
     const newRole = [
       {
-        role: data.role,
+        role_id: data.role,
+      },
+      {
+        id: data.employee,
+      },
+    ];
+    connection.query(query, newRole, (err, res) => {
+        if (err) throw err;
+        inquirerPrompts();
+    })
+  });
+}
+function updateManager() {
+  inquirer([
+    {
+      name: "employee",
+      type: "input",
+      message:
+        "Enter the ID of the Employee whose Manager you would like to update.",
+    },
+    {
+      name: "manager",
+      type: "input",
+      message: "Enter the new Manager ID for this Employee.",
+    },
+  ]).then((data) => {
+    const query = "UPDATE employee SET ? WHERE ?";
+    const newRole = [
+      {
+        manager_id: data.manager,
       },
       {
         id: data.employee,
