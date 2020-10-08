@@ -1,39 +1,9 @@
-const inquirer = require("inquirer");
 const department = require("./department");
 const role = require("./role");
 const employee = require("./employee");
 const connection = require("./connection");
 
-
-function inquirerPrompts() {
-    inquirer
-      .prompt({
-        name: "choice",
-        type: "rawlist",
-        message: "What would you like to accomplish today?",
-        choices: [
-          "View all Departments",
-          "View all Roles",
-          "View all Employees",
-          "Add new Department",
-          "Add new Role",
-          "Add new Employee",
-          "Update Employee Deptartment",
-          "Update Employee Role",
-          "Update Employee Manager",
-          "View Employees by Manager",
-          "View Employees by Department",
-          "Delete Department",
-          "Delete Role",
-          "Delete Employee",
-          "View total budget of Department",
-          "Exit",
-        ],
-      })
-      .then(promptAnswer);
-  }
-
-  function promptAnswer({ choice }) {
+ function promptAnswer({ choice }) {
     switch (choice) {
 
       case "View all Departments":
@@ -106,5 +76,5 @@ function inquirerPrompts() {
   }
 
   module.exports = {
-      prompts: inquirerPrompts
+      answers: promptAnswer
   }

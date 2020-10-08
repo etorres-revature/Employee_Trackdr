@@ -1,7 +1,7 @@
 const mysql = require("mysql");
 const cTable = require("console.table");
 const connection = require("./connection");
-const inquirer = require("./inquirer")
+const inquirer = require("./inquirerPrompts");
 
 function viewEmployees() {
     const query = "SELECT * FROM employee";
