@@ -1,0 +1,23 @@
+{
+  "name": "employee_tracker",
+  "version": "1.0.0",
+  "description": "A Content Management System (CMS) to allow for the tracking of employees by department and role through the use of MySQL relational database tables, NODE.js Inquirer, and JavaScript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/etorres-revature/Employee_Tracker.git"
+  },
+  "author": "Eric D. Torres",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/etorres-revature/Employee_Tracker/issues"
+  },
+  "homepage": "https://github.com/etorres-revature/Employee_Tracker#readme",
+  "dependencies": {
+    "inquirer": "^7.3.3",
+    "mysql": "^2.18.1"
+  }
+}
