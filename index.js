@@ -34,6 +34,7 @@ function inquirerPrompts() {
         "Update Employee Role",
         "Update Employee Manager",
         "View Employees by Manager",
+        "View Employees by Department",
         "Delete Department",
         "Delete Role",
         "Delete Employee",
@@ -80,6 +81,10 @@ function promptAnswer({ choice }) {
 
     case "View Employees by Manager":
       viewEmployeesByManager();
+      break;
+
+    case "View Employees by Department":
+      viewEmployeesByDepartment();
       break;
 
     case "Delete Department":
@@ -255,11 +260,12 @@ function updateRole() {
       },
     ];
     connection.query(query, newRole, (err, res) => {
-        if (err) throw err;
-        inquirerPrompts();
-    })
+      if (err) throw err;
+      inquirerPrompts();
+    });
   });
 }
+
 function updateManager() {
   inquirer([
     {
@@ -284,10 +290,33 @@ function updateManager() {
       },
     ];
     connection.query(query, newRole, (err, res) => {
-        if (err) throw err;
-        inquirerPrompts();
-    })
+      if (err) throw err;
+      inquirerPrompts();
+    });
   });
 }
 
-
+function viewEmployeesByManager() {}
+function viewEmployeesByDepartment() {}
+function deleteDepartment() {
+    inquirer.prompt([{
+        name: "department",
+        type: "input",
+        message: "Enter the name of the Department you would like to delete"
+    }]).then(data => {
+        const query = "DELETE FROM department WHERE ?";
+        const deleteDept = {
+            name: data.department
+        }
+        connection.query(query, deleteDept, (err, res) => {
+            if(err) throw err;
+            console.log(`${deleteDept} has been deleted from the company records`)
+            inquirerPrompts();
+        })
+    })
+}
+function deleteRole() {
+    inquirer.prompt
+}
+function deleteEmployee() {}
+function viewTotalBudgetDept() {}
