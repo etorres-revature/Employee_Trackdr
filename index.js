@@ -299,24 +299,46 @@ function updateManager() {
 function viewEmployeesByManager() {}
 function viewEmployeesByDepartment() {}
 function deleteDepartment() {
-    inquirer.prompt([{
+  inquirer
+    .prompt([
+      {
         name: "department",
         type: "input",
-        message: "Enter the name of the Department you would like to delete"
-    }]).then(data => {
-        const query = "DELETE FROM department WHERE ?";
-        const deleteDept = {
-            name: data.department
-        }
-        connection.query(query, deleteDept, (err, res) => {
-            if(err) throw err;
-            console.log(`${deleteDept} has been deleted from the company records`)
-            inquirerPrompts();
-        })
-    })
+        message: "Enter the name of the Department you would like to delete.",
+      },
+    ])
+    .then((data) => {
+      const query = "DELETE FROM department WHERE ?";
+      const deleteDept = {
+        name: data.department,
+      };
+      connection.query(query, deleteDept, (err, res) => {
+        if (err) throw err;
+        console.log(`${deleteDept} has been deleted from the company records`);
+        inquirerPrompts();
+      });
+    });
 }
 function deleteRole() {
-    inquirer.prompt
+  inquirer
+    .prompt([
+      {
+        name: "role",
+        type: "input",
+        message: "Enter the title of the Role you would like to delete.",
+      },
+    ])
+    .then((data) => {
+      const query = "DELETE FROM role WHERE ?";
+      const deleteRole = {
+        title: data.role,
+      };
+      connection.query(query, deleteRole, (err, res) => {
+        if (err) throw err;
+        console.log(`${deleteRole} has been deleted from the company records`);
+        inquirerPrompts();
+      });
+    });
 }
 function deleteEmployee() {}
 function viewTotalBudgetDept() {}
