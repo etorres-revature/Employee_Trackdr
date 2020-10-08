@@ -302,8 +302,33 @@ function updateManager() {
     });
 }
 
-function viewEmployeesByManager() {}
-function viewEmployeesByDepartment() {}
+function viewEmployeesByManager() {
+  const query = `SELECT CONCAT(e2.first_name, " ", e2.last_name) AS Manager, e1.id AS EMPID, e1.first_name AS FName, e1.last_name AS LName, role.title AS Title, department.name AS Department, role.salary AS Salary FROM employee AS e1
+    LEFT JOIN role on e1.role_id = role.id
+    LEFT JOIN department ON role.department_id = department.id
+    INNER JOIN employee AS e2 on e2.id=e1.manager_id
+    ORDER BY manager ASC;`;
+  connection.query(query, (err, res) => {
+    if (err) throw err;
+    const table = cTable.getTable(res);
+    console.log(table);
+    inquirerPrompts();
+  });
+}
+
+function viewEmployeesByDepartment() {
+    const query = `SELECT e1.id AS EMPID, e1.first_name AS FName, e1.last_name AS LName, role.title AS Title, department.name AS Department, role.salary AS Salary, CONCAT(e2.first_name, " ", e2.last_name) AS Manager FROM employee AS e1
+    LEFT JOIN role on e1.role_id = role.id
+    LEFT JOIN department ON role.department_id = department.id
+    LEFT JOIN employee AS e2 on e2.id=e1.manager_id
+    ORDER BY department ASC;`;
+  connection.query(query, (err, res) => {
+    if (err) throw err;
+    const table = cTable.getTable(res);
+    console.log(table);
+    inquirerPrompts();
+  });
+}
 
 function deleteDepartment() {
   inquirer
@@ -321,7 +346,9 @@ function deleteDepartment() {
       };
       connection.query(query, deleteDept, (err, res) => {
         if (err) throw err;
-        console.log("This Department has been deleted from the company records.");
+        console.log(
+          "This Department has been deleted from the company records."
+        );
         inquirerPrompts();
       });
     });
