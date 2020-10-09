@@ -29,17 +29,13 @@ const connection = require("./connection");
       case "Add new Employee":
         employee.create();
         break;
-
-      case "Update Employee Deptartment":
-        department.update();
-        break;
   
       case "Update Employee Role":
         role.update();
         break;
   
       case "Update Employee Manager":
-        emmployee.updateMan();
+        employee.updateMan();
         break;
   
       case "View Employees by Manager":
@@ -62,8 +58,12 @@ const connection = require("./connection");
         employee.delete();
         break;
   
+      case "View total budget by Department":
+        employee.companyBudget();
+        break;
+
       case "View total budget of Department":
-        employee.empByBudget();
+        employee.deptBudget();
         break;
   
       case "Exit":

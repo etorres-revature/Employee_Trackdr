@@ -1,7 +1,8 @@
 const mysql = require("mysql");
 const cTable = require("console.table");
 const connection = require("./connection");
-const inquirer = require("./inquirerPrompts");
+const inquireMod = require("./inquirerPrompts");
+const inquirer = require("inquirer");
 
 function viewEmployees() {
     const query = "SELECT * FROM employee";
@@ -9,7 +10,7 @@ function viewEmployees() {
       if (err) throw err;
       const table = cTable.getTable(res);
       console.log(table);
-      inquirer.prompts();
+      inquireMod.prompts();
     });
   }
   
@@ -50,7 +51,7 @@ function viewEmployees() {
         connection.query(query, newEmp, (err, res) => {
           if (err) throw err;
           console.log("New Employee successfully added.");
-          inquirer.prompts();
+          inquireMod.prompts();
         });
       });
   }
@@ -82,7 +83,7 @@ function viewEmployees() {
         ];
         connection.query(query, newRole, (err, res) => {
           if (err) throw err;
-          inquirer.prompts();
+          inquireMod.prompts();
         });
       });
   }
@@ -97,7 +98,7 @@ function viewEmployees() {
       if (err) throw err;
       const table = cTable.getTable(res);
       console.log(table);
-      inquirer.prompts();
+      inquireMod.prompts();
     });
   }
   
@@ -111,7 +112,7 @@ function viewEmployees() {
       if (err) throw err;
       const table = cTable.getTable(res);
       console.log(table);
-      inquirer.prompts();
+      inquireMod.prompts();
     });
   }
 
@@ -127,25 +128,61 @@ function viewEmployees() {
       .then((data) => {
         const query = "DELETE FROM employee WHERE ?";
         const deleteEmp = {
-          id: data.empID,
+          id: data.empID
         };
         connection.query(query, deleteEmp, (err, res) => {
           if (err) throw err;
           console.log("This Employee has been deleted from the company records.");
-          inquirer.prompts();
+          inquireMod.prompts();
         });
       });
   }
-  
-  function viewTotalBudgetDept() {}
-  
+
+  function viewCompanyBudget() {
+    const query = `SELECT department.name AS Department, SUM(role.salary) AS Dept_Budget FROM employee
+    LEFT JOIN role ON employee.role_id = role.id
+    LEFT JOIN department ON role.department_id = department.id
+    GROUP BY department.name;`;
+    connection.query(query, (err, res) => {
+        if (err) throw err;
+        const table = cTable.getTable(res);
+        console.log(table);
+        inquireMod.prompts(); 
+    })
+}
+
+  function viewTotalBudgetDept() {
+      inquirer.prompt([{
+          name: "deptID",
+          type: "input",
+          message: "Please enter the name of the Department to see its budget utilization."
+      }])
+    .then(data => {
+        const query = `SELECT department.name AS Department, SUM(role.salary) AS Dept_Budget FROM employee 
+        LEFT JOIN role ON employee.role_id = role.id
+        LEFT JOIN department ON role.department_id = department.id
+        WHERE department.id = ?;`;
+
+        const queryDept = {
+            id: data.deptID
+        }
+        
+  connection.query(query, queryDept, (err, res) => {
+    if (err) throw err;
+    const table = cTable.getTable(res);
+    console.log(table);
+    inquireMod.prompts(); 
+  })
+  })
+}
 
 module.exports = {
     create: addEmployee,
     read: viewEmployees,
     empByMan: viewEmployeesByManager,
     empByDept: viewEmployeesByDepartment,
-    empByBudget: viewTotalBudgetDept,
+    companyBudget: viewCompanyBudget, 
+    deptBudget: viewTotalBudgetDept,
     updateMan: updateManager,
     delete: deleteEmployee
 };

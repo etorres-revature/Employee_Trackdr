@@ -1,7 +1,6 @@
 const inquirer = require("inquirer");
 const answer = require("./inquirerAnswers")
 
-
 function inquirerPrompts() {
     inquirer
       .prompt({
@@ -15,7 +14,6 @@ function inquirerPrompts() {
           "Add new Department",
           "Add new Role",
           "Add new Employee",
-          "Update Employee Deptartment",
           "Update Employee Role",
           "Update Employee Manager",
           "View Employees by Manager",
@@ -23,6 +21,7 @@ function inquirerPrompts() {
           "Delete Department",
           "Delete Role",
           "Delete Employee",
+          "View total budget by Department",
           "View total budget of Department",
           "Exit",
         ],

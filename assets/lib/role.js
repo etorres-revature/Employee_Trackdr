@@ -1,7 +1,8 @@
 const mysql = require("mysql");
 const cTable = require("console.table");
 const connection = require("./connection");
-const inquirer = require("./inquirerPrompts");
+const inquireMod = require("./inquirerPrompts");
+const inquirer = require("inquirer");
 
 function viewRoles() {
     const query = "SELECT * FROM role";
@@ -9,7 +10,7 @@ function viewRoles() {
       if (err) throw err;
       const table = cTable.getTable(res);
       console.log(table);
-      inquirer.prompts();
+      inquireMod.prompts();
     });
   }
 
@@ -42,7 +43,7 @@ function viewRoles() {
         connection.query(query, newRole, (err, res) => {
           if (err) throw err;
           console.log("New Role successfully added.");
-          inquirer.prompts();
+          inquireMod.prompts();
         });
       });
   }
@@ -74,7 +75,7 @@ function viewRoles() {
         ];
         connection.query(query, newRole, (err, res) => {
           if (err) throw err;
-          inquirer.prompts();
+          inquireMod.prompts();
         });
       });
   }
@@ -96,7 +97,7 @@ function viewRoles() {
         connection.query(query, deleteRole, (err, res) => {
           if (err) throw err;
           console.log("This Role has been deleted from the company records.");
-          inquirer.prompts();
+          inquireMod.prompts();
         });
       });
   }

@@ -1,7 +1,8 @@
 const mysql = require("mysql");
 const cTable = require("console.table");
 const connection = require("./connection");
-const inquirer = require("./inquirerPrompts");
+const inquireMod = require("./inquirerPrompts");
+const inquirer = require("inquirer");
 
 function viewDepts() {
     const query = "SELECT * FROM department";
@@ -9,7 +10,7 @@ function viewDepts() {
       if (err) throw err;
       const table = cTable.getTable(res);
       console.log(table);
-      inquirer.prompts();
+      inquireMod.prompts();
     });
   }
 
@@ -30,39 +31,7 @@ function viewDepts() {
         connection.query(query, newDept, (err, res) => {
           if (err) throw err;
           console.log("New Department successfully added!");
-          inquirer.prompts();
-        });
-      });
-  }
-
-  function updateDept() {
-    inquirer
-      .prompt([
-        {
-          name: "employee",
-          type: "input",
-          message:
-            "Enter the ID of the Employee whose Manager you would like to update.",
-        },
-        {
-          name: "department",
-          type: "input",
-          message: "Enter the new Department ID for this Employee.",
-        },
-      ])
-      .then((data) => {
-        const query = "UPDATE employee SET ? WHERE ?";
-        const newRole = [
-          {
-            id: data.department,
-          },
-          {
-            id: data.employee,
-          },
-        ];
-        connection.query(query, newRole, (err, res) => {
-          if (err) throw err;
-          inquirer.prompts();
+          inquireMod.prompts();
         });
       });
   }
@@ -86,7 +55,7 @@ function viewDepts() {
           console.log(
             "This Department has been deleted from the company records."
           );
-          inquirer.prompts();
+          inquireMod.prompts();
         });
       });
   }
@@ -94,6 +63,5 @@ function viewDepts() {
   module.exports = {
       create: addDept,
       read: viewDepts,
-      update: updateDept,
       delete: deleteDept
   }
