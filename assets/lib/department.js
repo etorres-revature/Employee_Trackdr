@@ -64,14 +64,14 @@ function updateDept() {
   inquirer
     //function to collect user input
     .prompt([
-      //asking for the ID of the employee whose role is to be updated
+      //asking for the ID of the department whose name is to be updated
       {
         name: "deptID",
         type: "input",
         message:
           "Enter the ID of the Department name you would like to update.",
       },
-      //collecting the new role id for that employee
+      //collecting the updated deparment name
       {
         name: "dept",
         type: "input",
@@ -80,7 +80,7 @@ function updateDept() {
     ])
     //promise to perform after user input
     .then((data) => {
-      //querty to update the employee record WHERE the id is equal to the input and set it to the new role id infromation input by the user
+      //querty to update the department record WHERE the id is equal to the input and set it to the new department name input by the user
       const query = "UPDATE department SET ? WHERE ?";
       //object for what information to put into the question marks
       const newRole = [

@@ -102,7 +102,7 @@ function updateEmpRole() {
     ])
     //promise to perform after user input
     .then((data) => {
-      //querty to update the employee record WHERE the id is equal to the input and set it to the new role id infromation input by the user
+      //query to update the employee record WHERE the id is equal to the input and set it to the new role id infromation input by the user
       const query = "UPDATE employee SET ? WHERE ?";
       //object for what information to put into the question marks
       const newRole = [
@@ -311,7 +311,7 @@ module.exports = {
   empByDept: viewEmployeesByDepartment,
   companyBudget: viewCompanyBudget,
   deptBudget: viewTotalBudgetDept,
-  updateRole: updateEmpManager,
+  updateRole: updateEmpRole,
   updateMan: updateEmpManager,
   delete: deleteEmployee,
 };

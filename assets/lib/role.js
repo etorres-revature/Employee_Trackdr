@@ -78,14 +78,14 @@ function addRole() {
     inquirer
       //function to collect user input
       .prompt([
-        //asking for the ID of the employee whose role is to be updated
+        //asking for the ID of the role that is to be updated
         {
           name: "roleID",
           type: "input",
           message:
             "Enter the ID of the Role you would like to update.",
         },
-        //collecting the new role id for that employee
+        //collecting the updated information for that role
         {
           name: "role",
           type: "input",
@@ -104,7 +104,7 @@ function addRole() {
       ])
       //promise to perform after user input
       .then((data) => {
-        //querty to update the employee record WHERE the id is equal to the input and set it to the new role id infromation input by the user
+        //query to update the role record WHERE the id is equal to the input and set it to the new role infromation input by the user
         const query = "UPDATE role SET ? WHERE ?";
         //object for what information to put into the question marks
         const newRole = [
