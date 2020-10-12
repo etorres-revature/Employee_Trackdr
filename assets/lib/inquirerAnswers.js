@@ -36,8 +36,16 @@ function promptAnswer({ choice }) {
       employee.create();
       break;
 
-    case "Update Employee Role":
+    case "Update Department":
+      department.update();
+      break;
+
+    case "Update Role":
       role.update();
+      break;
+
+    case "Update Employee Role":
+      role.updateEmp();
       break;
 
     case "Update Employee Manager":

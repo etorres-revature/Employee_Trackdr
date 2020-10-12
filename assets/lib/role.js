@@ -65,7 +65,7 @@ function addRole() {
         //error handling
         if (err) throw err;
         //console success message
-        console.log("New Role successfully added.");
+        console.log("New Role successfully added to the role table in the company database.");
         //returning the program to the file containing the inquirer prompts
         inquireMod.prompts();
       });
@@ -73,7 +73,7 @@ function addRole() {
 }
 
 //funtion to update an employee's role
-function updateRole() {
+function updateEmpRole() {
   //calling inquirer
   inquirer
     //function to collect user input
@@ -110,12 +110,69 @@ function updateRole() {
         //error handling
         if (err) throw err;
         //console success message
-        console.log("New Role has been added to the role table.");
+        console.log("This Role has been updated in the role table.");
         //returning the program to the file containing the inquirer prompts
         inquireMod.prompts();
       });
     });
 }
+
+  //funtion to update a role
+  function updateRole() {
+    //calling inquirer
+    inquirer
+      //function to collect user input
+      .prompt([
+        //asking for the ID of the employee whose role is to be updated
+        {
+          name: "roleID",
+          type: "input",
+          message:
+            "Enter the ID of the Role you would like to update.",
+        },
+        //collecting the new role id for that employee
+        {
+          name: "role",
+          type: "input",
+          message: "Enter the new Role title.",
+        },
+        {
+          name: "salary",
+          type: "input",
+          message: "Enter the new salary for this role."
+        }, 
+        {
+          name: "deptID",
+          type: "input",
+          message: "Enter the new Department ID for this role"
+        }
+      ])
+      //promise to perform after user input
+      .then((data) => {
+        //querty to update the employee record WHERE the id is equal to the input and set it to the new role id infromation input by the user
+        const query = "UPDATE role SET ? WHERE ?";
+        //object for what information to put into the question marks
+        const newRole = [
+          {
+            title: data.role,
+            salary: data.salary,
+            department_id: data.deptID
+          },
+          {
+            id: data.roleID,
+          },
+        ];
+        //calling the connection file and passing in the query and object of user input to the MySQL database
+        connection.query(query, newRole, (err, res) => {
+          //error handling
+          if (err) throw err;
+          //console success message
+          console.log("The Role has been updated in the role table of the company database.");
+          //returning the program to the file containing the inquirer prompts
+          inquireMod.prompts();
+        });
+      });
+  }
 
 //function to delete a role from the role table
 function deleteRole() {
@@ -143,7 +200,7 @@ function deleteRole() {
         //error handling
         if (err) throw err;
         //console success messsage
-        console.log("This Role has been deleted from the company records.");
+        console.log("This Role has been deleted from the company database.");
         //returning the program to the file containing the inquirer prompts
         inquireMod.prompts();
       });
@@ -155,5 +212,6 @@ module.exports = {
   create: addRole,
   read: viewRoles,
   update: updateRole,
+  updateEmp: updateEmpRole,
   delete: deleteRole,
 };

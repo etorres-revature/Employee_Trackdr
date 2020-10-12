@@ -73,7 +73,7 @@ function addEmployee() {
         //error handling
         if (err) throw err;
         //console success message
-        console.log("New Employee successfully added.");
+        console.log("New Employee successfully added to the employee table of the company database.");
         //returning the program to the file containing the inquirer prompts
         inquireMod.prompts();
       });
@@ -117,6 +117,7 @@ function updateManager() {
       connection.query(query, newRole, (err, res) => {
         //error handling
         if (err) throw err;
+        console.log("This Employee's record has been updated in the employee table of the company database.")
         //returning the program to the file containing the inquirer prompts
         inquireMod.prompts();
       });

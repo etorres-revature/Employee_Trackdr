@@ -51,12 +51,57 @@ function viewDepts() {
           //error handling
           if (err) throw err;
           //console success message
-          console.log("New Department successfully added!");
+          console.log("New Department successfully added to the department table of the company database!");
           //returning the program to the file containing the inquirer prompts
           inquireMod.prompts();
         });
       });
   }
+
+  //funtion to update a department
+function updateDept() {
+  //calling inquirer
+  inquirer
+    //function to collect user input
+    .prompt([
+      //asking for the ID of the employee whose role is to be updated
+      {
+        name: "deptID",
+        type: "input",
+        message:
+          "Enter the ID of the Department name you would like to update.",
+      },
+      //collecting the new role id for that employee
+      {
+        name: "dept",
+        type: "input",
+        message: "Enter the new Department name.",
+      },
+    ])
+    //promise to perform after user input
+    .then((data) => {
+      //querty to update the employee record WHERE the id is equal to the input and set it to the new role id infromation input by the user
+      const query = "UPDATE department SET ? WHERE ?";
+      //object for what information to put into the question marks
+      const newRole = [
+        {
+          name: data.dept,
+        },
+        {
+          id: data.deptID,
+        },
+      ];
+      //calling the connection file and passing in the query and object of user input to the MySQL database
+      connection.query(query, newRole, (err, res) => {
+        //error handling
+        if (err) throw err;
+        //console success message
+        console.log("The Department name has been updated in the department table of the company database.");
+        //returning the program to the file containing the inquirer prompts
+        inquireMod.prompts();
+      });
+    });
+}
 
   //function to delete a department from the department table
   function deleteDept() {
@@ -85,7 +130,7 @@ function viewDepts() {
           if (err) throw err;
           //console success message
           console.log(
-            "This Department has been deleted from the company records."
+            "This Department has been deleted from the department table of the company database."
           );
           //returning the program to the file contaiing the inquirer prompts
           inquireMod.prompts();
@@ -97,5 +142,6 @@ function viewDepts() {
   module.exports = {
       create: addDept,
       read: viewDepts,
+      update: updateDept,
       delete: deleteDept
   }

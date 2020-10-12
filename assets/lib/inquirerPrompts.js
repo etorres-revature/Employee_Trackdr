@@ -19,6 +19,8 @@ function inquirerPrompts() {
         "Add new Department",
         "Add new Role",
         "Add new Employee",
+        "Update Department",
+        "Update Role",
         "Update Employee Role",
         "Update Employee Manager",
         "View Employees by Manager",
