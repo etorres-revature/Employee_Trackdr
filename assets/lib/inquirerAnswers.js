@@ -45,7 +45,7 @@ function promptAnswer({ choice }) {
       break;
 
     case "Update Employee Role":
-      role.updateEmp();
+      employee.updateRole();
       break;
 
     case "Update Employee Manager":

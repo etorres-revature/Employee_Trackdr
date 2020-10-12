@@ -80,8 +80,53 @@ function addEmployee() {
     });
 }
 
+//funtion to update an employee's role
+function updateEmpRole() {
+  //calling inquirer
+  inquirer
+    //function to collect user input
+    .prompt([
+      //asking for the ID of the employee whose role is to be updated
+      {
+        name: "employee",
+        type: "input",
+        message:
+          "Enter the ID of the Employee whose Role you would like to update.",
+      },
+      //collecting the new role id for that employee
+      {
+        name: "role",
+        type: "input",
+        message: "Enter the new Role ID for this Employee.",
+      },
+    ])
+    //promise to perform after user input
+    .then((data) => {
+      //querty to update the employee record WHERE the id is equal to the input and set it to the new role id infromation input by the user
+      const query = "UPDATE employee SET ? WHERE ?";
+      //object for what information to put into the question marks
+      const newRole = [
+        {
+          role_id: data.role,
+        },
+        {
+          id: data.employee,
+        },
+      ];
+      //calling the connection file and passing in the query and object of user input to the MySQL database
+      connection.query(query, newRole, (err, res) => {
+        //error handling
+        if (err) throw err;
+        //console success message
+        console.log("This Role has been updated in the role table.");
+        //returning the program to the file containing the inquirer prompts
+        inquireMod.prompts();
+      });
+    });
+}
+
 //function to update manager for employee
-function updateManager() {
+function updateEmpManager() {
   //calling inquirer
   inquirer
     //function to collect user input
@@ -266,6 +311,7 @@ module.exports = {
   empByDept: viewEmployeesByDepartment,
   companyBudget: viewCompanyBudget,
   deptBudget: viewTotalBudgetDept,
-  updateMan: updateManager,
+  updateRole: updateEmpManager,
+  updateMan: updateEmpManager,
   delete: deleteEmployee,
 };
