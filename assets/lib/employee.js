@@ -118,7 +118,7 @@ function updateEmpRole() {
         //error handling
         if (err) throw err;
         //console success message
-        console.log("This Role has been updated in the role table.");
+        console.log("This Role has been updated in the employee table.");
         //returning the program to the file containing the inquirer prompts
         inquireMod.prompts();
       });

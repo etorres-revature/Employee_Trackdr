@@ -90,6 +90,4 @@ function promptAnswer({ choice }) {
 }
 
 //export of this file for use by other modules
-module.exports = {
-  answers: promptAnswer,
-};
+module.exports.answers = promptAnswer;
