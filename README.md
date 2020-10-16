@@ -29,7 +29,7 @@ Clone this repository.  Open the file in an IDE.
 
 Use this project to create, read, update, and delete (CRUD) your own database fields.  Users can expand upon the relational database provided, or they can create their own information to manage.
 
-Here are three :movie_camera: **VIDEOS** :movie_camera: that display how to use the application.
+Here are two :movie_camera: **VIDEOS** :movie_camera: that display how to use the application.
 
 1. *CODE* walk through:
 
