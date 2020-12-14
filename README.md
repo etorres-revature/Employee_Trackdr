@@ -1,5 +1,5 @@
 
-![Github License](https://img.shields.io/badge/License-MIT_License-brightgreen)
+![Github License](https://img.shields.io/badge/License-MIT-brightgreen)
 
 # Employee Tracker
 
